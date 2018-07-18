@@ -27,6 +27,7 @@ object Libs {
   val support_annotations = "com.android.support:support-annotations:${Vers.support_lib}"
   val recyclerview = "androidx.recyclerview:recyclerview:1.0.0-beta01"
   val constraintlayout = "androidx.constraintlayout:constraintlayout:2.0.0-alpha1"
+  val cardview = "androidx.cardview:cardview:1.0.0-beta01"
 
   val viewmodel = "android.arch.lifecycle:viewmodel:1.1.1"
   val livedata = "android.arch.lifecycle:livedata:1.1.1"

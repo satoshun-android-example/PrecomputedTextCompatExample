@@ -46,9 +46,7 @@ val random = Random()
 val alphabet = "abcdefghijklmnopqrstuvwxyz".toCharArray()
 
 private fun generateText(): String {
-  return (0..1000)
-      .map {
-        alphabet[random.nextInt(26)]
-      }
-      .toString()
+  return (0..500)
+      .map { alphabet[random.nextInt(26)] }
+      .joinToString("")
 }

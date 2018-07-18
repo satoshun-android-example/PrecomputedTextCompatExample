@@ -25,6 +25,7 @@ dependencies {
   implementation Libs.appcompat
   implementation Libs.recyclerview
   implementation Libs.constraintlayout
+  implementation Libs.cardview
 
   testImplementation 'junit:junit:4.12'
 
