@@ -23,6 +23,7 @@ android {
 dependencies {
   implementation Libs.kotlin
   implementation Libs.appcompat
+  implementation Libs.recyclerview
   implementation Libs.constraintlayout
 
   testImplementation 'junit:junit:4.12'
