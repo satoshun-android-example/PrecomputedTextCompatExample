@@ -15,6 +15,12 @@ android {
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
   }
 
+  buildTypes {
+    debug {
+      debuggable false
+    }
+  }
+
   dataBinding {
     enabled = true
   }
@@ -22,13 +28,17 @@ android {
 
 dependencies {
   implementation Libs.kotlin
+
   implementation Libs.appcompat
   implementation Libs.recyclerview
   implementation Libs.constraintlayout
   implementation Libs.cardview
 
+  implementation Libs.coroutine
+  implementation Libs.ui_coroutine
+
   testImplementation 'junit:junit:4.12'
 
-  androidTestImplementation 'androidx.test:runner:1.1.0-alpha3'
-  androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha3'
+  androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'
+  androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
 }
