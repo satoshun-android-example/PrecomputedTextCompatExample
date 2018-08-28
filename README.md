@@ -1,12 +1,22 @@
 # PrecomputedTextCompat sample
 
-new way graph
+normal approach
 
-<img src="screenshots/after.png" width=260/>
+<img src="screenshots/normal.png" width=260/>
 
-basic way graph
+---
 
-<img src="screenshots/before.png" width=260/>
+PrecomputedText future approach
+
+<img src="screenshots/future.png" width=260/>
+
+---
+
+PrecomputedText coroutine approach
+
+<img src="screenshots/coroutine.png" width=260/>
+
+improvement onMeasure performance!!
 
 ## ref
 
