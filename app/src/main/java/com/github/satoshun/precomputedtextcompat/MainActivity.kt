@@ -1,17 +1,26 @@
 package com.github.satoshun.precomputedtextcompat
 
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.util.Linkify
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.text.PrecomputedTextCompat
+import androidx.core.text.util.LinkifyCompat
 import androidx.core.widget.TextViewCompat
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.BindAwareViewHolder
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.github.satoshun.precomputedtextcompat.databinding.MainActBinding
 import com.github.satoshun.precomputedtextcompat.databinding.MainItemBinding
+import kotlinx.coroutines.experimental.DefaultDispatcher
+import kotlinx.coroutines.experimental.Job
+import kotlinx.coroutines.experimental.android.UI
+import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.experimental.withContext
 import java.util.Random
 
 class MainActivity : AppCompatActivity() {
@@ -35,21 +44,37 @@ private class Adapter : RecyclerView.Adapter<ViewHolder>() {
   override fun getItemCount(): Int = 1000
 
   override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-    val text = texts[position]
+    val spannable = spannables[position]
     val important = predicates[position]
-
-    // new way
     holder.binding.title.textSize = if (important) 16f else 12f
-    (holder.binding.title as AppCompatTextView).setTextFuture(
-        PrecomputedTextCompat.getTextFuture(
-            text,
-            TextViewCompat.getTextMetricsParams(holder.binding.title),
-            null
-        )
-    )
+
+    // new way future approach
+    if (true) {
+      (holder.binding.title as AppCompatTextView).setTextFuture(
+          PrecomputedTextCompat.getTextFuture(
+              spannable,
+              TextViewCompat.getTextMetricsParams(holder.binding.title),
+              null
+          )
+      )
+    }
+
+    // new way coroutine approach
+    if (false) {
+      val job = launch(UI) {
+        val text = withContext(DefaultDispatcher) {
+          val params = TextViewCompat.getTextMetricsParams(holder.binding.title)
+          PrecomputedTextCompat.create(spannable, params)
+        }
+        TextViewCompat.setPrecomputedText(holder.binding.title, text)
+      }
+      holder.job = job
+    }
 
     // normal way
-//    holder.binding.title.text = text
+    if (false) {
+      holder.binding.title.text = spannable
+    }
   }
 
   override fun getItemViewType(position: Int): Int {
@@ -58,12 +83,24 @@ private class Adapter : RecyclerView.Adapter<ViewHolder>() {
 }
 
 private class ViewHolder(
-    val binding: MainItemBinding
-) : RecyclerView.ViewHolder(binding.root)
+  val binding: MainItemBinding
+) : BindAwareViewHolder(binding.root) {
+  var job: Job? = null
+
+  override fun onUnbind() {
+    job?.cancel()
+  }
+}
 
 val random = Random()
 val alphabet = "abcdefghijklmnopqrstuvwxyz".toCharArray()
-val texts = (0..1000).map { generateText() }
+
+// simulate expensive spannable
+val spannables = (0..1000).map {
+  SpannableString(generateText()).apply {
+    LinkifyCompat.addLinks(this, Linkify.ALL)
+  }
+}
 val predicates = (0..1000).map { random.nextInt(5) % 5 == 0 }
 
 private fun generateText(): String {

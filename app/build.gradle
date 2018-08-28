@@ -3,13 +3,12 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-  compileSdkVersion 28
-  buildToolsVersion "28.0.1"
+  compileSdkVersion Vers.compile_sdk
 
   defaultConfig {
     applicationId "com.github.satoshun.precomputedtextcompat"
-    minSdkVersion 19
-    targetSdkVersion 28
+    minSdkVersion Vers.min_sdk
+    targetSdkVersion Vers.target_sdk
     versionCode 1
     versionName "1.0"
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -41,4 +40,10 @@ dependencies {
 
   androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'
   androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
+}
+
+kotlin {
+  experimental {
+    coroutines "enable"
+  }
 }
