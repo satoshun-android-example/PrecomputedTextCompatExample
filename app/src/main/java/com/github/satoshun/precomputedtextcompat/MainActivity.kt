@@ -16,12 +16,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.github.satoshun.precomputedtextcompat.databinding.MainActBinding
 import com.github.satoshun.precomputedtextcompat.databinding.MainItemBinding
-import kotlinx.coroutines.experimental.DefaultDispatcher
 import kotlinx.coroutines.experimental.Job
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.launch
 import kotlinx.coroutines.experimental.withContext
 import java.util.Random
+import kotlin.coroutines.experimental.coroutineContext
 
 class MainActivity : AppCompatActivity() {
 
@@ -62,7 +62,7 @@ private class Adapter : RecyclerView.Adapter<ViewHolder>() {
     // new way coroutine approach
     if (false) {
       val job = launch(UI) {
-        val text = withContext(DefaultDispatcher) {
+        val text = withContext(coroutineContext) {
           val params = TextViewCompat.getTextMetricsParams(holder.binding.title)
           PrecomputedTextCompat.create(spannable, params)
         }
