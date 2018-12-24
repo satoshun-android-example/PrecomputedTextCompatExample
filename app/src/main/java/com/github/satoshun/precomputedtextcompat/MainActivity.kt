@@ -16,15 +16,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.github.satoshun.precomputedtextcompat.databinding.MainActBinding
 import com.github.satoshun.precomputedtextcompat.databinding.MainItemBinding
-import kotlinx.coroutines.experimental.Job
-import kotlinx.coroutines.experimental.android.UI
-import kotlinx.coroutines.experimental.launch
-import kotlinx.coroutines.experimental.withContext
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.Random
-import kotlin.coroutines.experimental.coroutineContext
 
 class MainActivity : AppCompatActivity() {
-
   private lateinit var binding: MainActBinding
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,9 +36,7 @@ class MainActivity : AppCompatActivity() {
 
 private class Adapter : RecyclerView.Adapter<ViewHolder>() {
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
-      ViewHolder(
-          MainItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-      )
+    ViewHolder(MainItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
 
   override fun getItemCount(): Int = 1000
 
@@ -49,20 +46,20 @@ private class Adapter : RecyclerView.Adapter<ViewHolder>() {
     holder.binding.title.textSize = if (important) 16f else 12f
 
     // new way future approach
-    if (true) {
+    if (false) {
       (holder.binding.title as AppCompatTextView).setTextFuture(
-          PrecomputedTextCompat.getTextFuture(
-              spannable,
-              TextViewCompat.getTextMetricsParams(holder.binding.title),
-              null
-          )
+        PrecomputedTextCompat.getTextFuture(
+          spannable,
+          TextViewCompat.getTextMetricsParams(holder.binding.title),
+          null
+        )
       )
     }
 
     // new way coroutine approach
-    if (false) {
-      val job = launch(UI) {
-        val text = withContext(coroutineContext) {
+    if (true) {
+      val job = GlobalScope.launch(Dispatchers.Main) {
+        val text = withContext(Dispatchers.IO) {
           val params = TextViewCompat.getTextMetricsParams(holder.binding.title)
           PrecomputedTextCompat.create(spannable, params)
         }
@@ -92,19 +89,19 @@ private class ViewHolder(
   }
 }
 
-val random = Random()
-val alphabet = "abcdefghijklmnopqrstuvwxyz".toCharArray()
+private val random = Random()
+private val alphabet = "abcdefghijklmnopqrstuvwxyz".toCharArray()
 
 // simulate expensive spannable
-val spannables = (0..1000).map {
+private val spannables = (0..1000).map {
   SpannableString(generateText()).apply {
     LinkifyCompat.addLinks(this, Linkify.ALL)
   }
 }
-val predicates = (0..1000).map { random.nextInt(5) % 5 == 0 }
+private val predicates = (0..1000).map { random.nextInt(5) % 5 == 0 }
 
 private fun generateText(): String {
   return (0..700)
-      .map { alphabet[random.nextInt(26)] }
-      .joinToString("")
+    .map { alphabet[random.nextInt(26)] }
+    .joinToString("")
 }
