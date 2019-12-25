@@ -16,18 +16,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.github.satoshun.precomputedtextcompat.databinding.MainActBinding
 import com.github.satoshun.precomputedtextcompat.databinding.MainItemBinding
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import java.util.Random
+import kotlinx.coroutines.*
+import java.util.*
 
-private const val isFuture = false
-private const val isCoroutine = true
-private const val isNormal = false
+var isFuture = false
+var isCoroutine = true
+var isNormal = false
 
-class MainActivity : AppCompatActivity() {
+  class MainActivity : AppCompatActivity() {
   private lateinit var binding: MainActBinding
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -97,7 +93,7 @@ private class ViewHolder(
 }
 
 private val random = Random()
-private val alphabet = "abcdefghijklmnopqrstuvwxyz".toCharArray()
+private val characters = "あいうえおかきくけこ".toCharArray()
 
 // simulate expensive spannable
 private val spannables = (0..1000).map {
@@ -109,6 +105,6 @@ private val predicates = (0..1000).map { random.nextInt(5) % 5 == 0 }
 
 private fun generateText(): String {
   return (0..700)
-    .map { alphabet[random.nextInt(26)] }
+    .map { characters[random.nextInt(characters.size)] }
     .joinToString("")
 }

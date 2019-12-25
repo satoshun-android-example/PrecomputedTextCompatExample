@@ -17,14 +17,12 @@ object Libs {
   val ui_coroutine = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Vers.couroutine}"
 
   val ktx = "androidx.core:core-ktx:1.2.0-rc01"
+  val lifecycle = "androidx.lifecycle:lifecycle-runtime-ktx:2.2.0-rc03"
 
   val appcompat = "androidx.appcompat:appcompat:1.1.0"
   val recyclerview = "androidx.recyclerview:recyclerview:1.1.0"
   val constraintlayout = "androidx.constraintlayout:constraintlayout:2.0.0-alpha3"
   val cardview = "androidx.cardview:cardview:1.0.0"
-
-  val viewmodel = "android.arch.lifecycle:viewmodel:1.1.1"
-  val livedata = "android.arch.lifecycle:livedata:1.1.1"
 
   val junit = "junit:junit:4.12"
   val support_test = "com.android.support.test:runner:1.0.1"
