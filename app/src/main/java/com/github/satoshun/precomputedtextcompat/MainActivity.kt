@@ -23,6 +23,10 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.Random
 
+private const val isFuture = false
+private const val isCoroutine = true
+private const val isNormal = false
+
 class MainActivity : AppCompatActivity() {
   private lateinit var binding: MainActBinding
 
@@ -36,7 +40,13 @@ class MainActivity : AppCompatActivity() {
 
 private class Adapter : RecyclerView.Adapter<ViewHolder>() {
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
-    ViewHolder(MainItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+    ViewHolder(
+      MainItemBinding.inflate(
+        LayoutInflater.from(parent.context),
+        parent,
+        false
+      )
+    )
 
   override fun getItemCount(): Int = 1000
 
@@ -45,8 +55,7 @@ private class Adapter : RecyclerView.Adapter<ViewHolder>() {
     val important = predicates[position]
     holder.binding.title.textSize = if (important) 16f else 12f
 
-    // new way future approach
-    if (false) {
+    if (isFuture) {
       (holder.binding.title as AppCompatTextView).setTextFuture(
         PrecomputedTextCompat.getTextFuture(
           spannable,
@@ -56,8 +65,7 @@ private class Adapter : RecyclerView.Adapter<ViewHolder>() {
       )
     }
 
-    // new way coroutine approach
-    if (true) {
+    if (isCoroutine) {
       val job = GlobalScope.launch(Dispatchers.Main) {
         val text = withContext(Dispatchers.IO) {
           val params = TextViewCompat.getTextMetricsParams(holder.binding.title)
@@ -68,8 +76,7 @@ private class Adapter : RecyclerView.Adapter<ViewHolder>() {
       holder.job = job
     }
 
-    // normal way
-    if (false) {
+    if (isNormal) {
       holder.binding.title.text = spannable
     }
   }

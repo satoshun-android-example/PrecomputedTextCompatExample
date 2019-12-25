@@ -32,18 +32,13 @@ dependencies {
   implementation Libs.recyclerview
   implementation Libs.constraintlayout
   implementation Libs.cardview
+  implementation Libs.ktx
 
   implementation Libs.coroutine
   implementation Libs.ui_coroutine
 
   testImplementation 'junit:junit:4.12'
 
-  androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'
-  androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
-}
-
-kotlin {
-  experimental {
-    coroutines "enable"
-  }
+  androidTestImplementation 'androidx.test:runner:1.3.0-alpha03'
+  androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0-alpha03'
 }
