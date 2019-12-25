@@ -1,11 +1,11 @@
 object Vers {
-  val compile_sdk = 28
+  val compile_sdk = 29
   val min_sdk = 21
-  val target_sdk = 28
-  val agp = "3.2.1"
+  val target_sdk = 29
+  val agp = "3.5.2"
 
-  val kotlin = "1.3.11"
-  val couroutine = "1.0.1"
+  val kotlin = "1.3.61"
+  val couroutine = "1.3.3"
 }
 
 object Libs {
@@ -16,10 +16,10 @@ object Libs {
   val coroutine = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Vers.couroutine}"
   val ui_coroutine = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Vers.couroutine}"
 
-  val ktx = "androidx.core:core-ktx:1.0.0"
+  val ktx = "androidx.core:core-ktx:1.2.0-rc01"
 
-  val appcompat = "androidx.appcompat:appcompat:1.0.0"
-  val recyclerview = "androidx.recyclerview:recyclerview:1.0.0"
+  val appcompat = "androidx.appcompat:appcompat:1.1.0"
+  val recyclerview = "androidx.recyclerview:recyclerview:1.1.0"
   val constraintlayout = "androidx.constraintlayout:constraintlayout:2.0.0-alpha3"
   val cardview = "androidx.cardview:cardview:1.0.0"
 
