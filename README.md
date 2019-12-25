@@ -4,7 +4,7 @@
 | ------ | ---------------------- | ------------------------- |
 | <img src="screenshots/normal.png" width=260/> | <img src="screenshots/future.png" width=260/> | <img src="screenshots/coroutine.png" width=260/> |
 
-improvement onMeasure performance!!
+improves onMeasure performance?
 
 ## ref
 
